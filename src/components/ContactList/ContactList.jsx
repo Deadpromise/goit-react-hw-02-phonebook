@@ -1,10 +1,11 @@
 import React from 'react';
 import ContactItem from 'components/ContactItem/ContactItem';
 
-const ContactList = ({ contacts }) => (
+const ContactList = ({ contacts, onDelete }) => (
     <ul>{
         contacts.map(({ id, name, number }) => (
-            <ContactItem key={id} name={name} number ={number}></ContactItem>
+            <ContactItem key={id} id={ id } name={name} number={number} onDelete={onDelete}>
+            </ContactItem>
         ))
     }</ul>
 );
