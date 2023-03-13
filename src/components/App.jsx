@@ -12,10 +12,11 @@ class App extends Component {
     filter: ''
   };
 
-  addContact = name => {
+  addContact = (name, number) => {
     const contact = {
       id: nanoid(),
       name,
+      number,
     }
     this.setState(({ contacts }) => ({
       contacts: [contact, ...contacts],
@@ -24,7 +25,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state);
     return <div
       style={{
         height: '100vh',

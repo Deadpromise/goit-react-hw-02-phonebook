@@ -3,20 +3,25 @@ import React, { Component } from 'react';
 class ContactForm extends Component {
     state = {
         name: '',
+        number: '',
     }
 
     getName = e => {
         this.setState({ name: e.currentTarget.value });
-    }
+    };
+    getNumber = e => {
+        this.setState({ number: e.currentTarget.value });
+    };
     formSubmit = e => {
         e.preventDefault();
-        this.props.onSubmit(this.state.name);
-        this.setState({ name: '' });
+        this.props.onSubmit(this.state.name, this.state.number);
+        this.setState({ name: '', number: '' });
 
     }
     render() {
         return (
             <form onSubmit={this.formSubmit}>
+                <label htmlFor="name">Name</label>
                 <input
                     type="text"
                     name="name"
@@ -24,6 +29,15 @@ class ContactForm extends Component {
                     title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
                     required
                     onChange={this.getName}
+                />
+                <label htmlFor="number">Number</label>
+                <input
+                    type="tel"
+                    name="number"
+                    pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                    title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
+                    required
+                    onChange={this.getNumber}
                 />
                 <button type="submit">Add contact</button>
            </form> 
