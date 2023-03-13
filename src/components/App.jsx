@@ -9,20 +9,34 @@ class App extends Component {
 
   };
   state = {
-    contacts: [],
+    contacts: [
+    {id: 'id-1', name: 'Rosie Simpson', number: '459-12-56'},
+    {id: 'id-2', name: 'Hermione Kline', number: '443-89-12'},
+    {id: 'id-3', name: 'Eden Clements', number: '645-17-79'},
+    {id: 'id-4', name: 'Annie Copeland', number: '227-91-26'},
+  ],
     filter: ''
   };
 
   addContact = (name, number) => {
+
     const contact = {
       id: nanoid(),
       name,
       number,
     }
-    this.setState(({ contacts }) => ({
-      contacts: [contact, ...contacts],
-    }))
-  
+    this.setState((prevState) => {
+      const chekClone = prevState.contacts.find(item => item.name === contact.name || item.number === contact.number);
+      if (chekClone) {
+        alert(`User with name ${contact.name} or number ${contact.number} is already in contacts`);
+        return {contacts: [...prevState.contacts]};
+      }
+      return {contacts: [contact, ...prevState.contacts]}
+    })
+    // this.setState(({ contacts }) => ({
+      // contacts: [contact, ...contacts],
+    // }));
+   
   };
   getFilter = e => {
     this.setState({ filter: e.currentTarget.value });
@@ -38,7 +52,7 @@ class App extends Component {
   render() {
     const { contacts, filter } = this.state;
     const filteredContacts = this.getFiltredContacts();
-    console.log(this.state);
+    // console.log(this.state);
     return <div
       style={{
         height: '100vh',
